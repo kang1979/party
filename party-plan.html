@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Re:WIND — 우리의 1학기 시즌 피날레 🎬</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sunset1:#ff8a5c;   /* 코랄 */
+    --sunset2:#ff5e78;   /* 핑크레드 */
+    --sunset3:#ffb86b;   /* 골드 */
+    --plum:#5b2a4e;      /* 딥플럼 */
+    --cream:#fff6ec;     /* 크림 */
+    --ink:#3a2230;       /* 텍스트 */
+    --soft:#7a6470;
+    --line:#ffd9c0;
+    --card:#fffdfa;
+    --shadow:0 12px 30px rgba(255,94,120,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Gowun Dodum',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #ffe3cf 0%, transparent 60%),
+      radial-gradient(1000px 500px at -10% 10%, #ffd5dd 0%, transparent 55%),
+      var(--cream);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 18px 80px;}
+
+  /* ===== HERO ===== */
+  .hero{
+    text-align:center;
+    padding:64px 22px 54px;
+    margin:26px 0 14px;
+    border-radius:32px;
+    background:linear-gradient(135deg,var(--sunset2),var(--sunset1) 55%,var(--sunset3));
+    color:#fff;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"🎬 🎉 🌅 ✨ 🥳 🎬 🎉 🌅 ✨ 🥳";
+    position:absolute;inset:auto 0 8px;opacity:.18;font-size:22px;letter-spacing:14px;white-space:nowrap;
+  }
+  .hero .tag{
+    display:inline-block;background:rgba(255,255,255,.22);
+    padding:6px 16px;border-radius:999px;font-size:14px;margin-bottom:16px;
+    backdrop-filter:blur(4px);font-family:'Jua',sans-serif;letter-spacing:1px;
+  }
+  .hero h1{
+    font-family:'Jua',sans-serif;font-size:clamp(34px,7vw,58px);line-height:1.15;
+    text-shadow:0 4px 18px rgba(91,42,78,.35);
+  }
+  .hero h1 small{display:block;font-size:.42em;opacity:.95;margin-top:10px;letter-spacing:1px;}
+  .hero .meta{
+    margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  }
+  .hero .meta span{
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+    padding:8px 14px;border-radius:14px;font-size:14px;
+  }
+  .concept{
+    background:var(--card);border:2px dashed var(--line);border-radius:22px;
+    padding:22px 24px;margin:18px 0 6px;font-size:16px;color:var(--soft);
+  }
+  .concept b{color:var(--sunset2);}
+
+  /* ===== SECTION ===== */
+  section{margin-top:46px;}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+  .sec-head .emoji{font-size:30px;}
+  .sec-head h2{
+    font-family:'Jua',sans-serif;font-size:clamp(23px,4.5vw,30px);color:var(--plum);
+  }
+  .sec-head .num{
+    margin-left:auto;font-family:'Gaegu',cursive;font-weight:700;font-size:26px;
+    color:var(--sunset1);opacity:.7;
+  }
+
+  /* ===== TIMELINE ===== */
+  .tl{position:relative;padding-left:6px;}
+  .tl-item{
+    display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:stretch;margin-bottom:14px;
+  }
+  .tl-time{
+    font-family:'Jua',sans-serif;color:#fff;
+    background:linear-gradient(135deg,var(--sunset1),var(--sunset2));
+    border-radius:16px;display:flex;align-items:center;justify-content:center;
+    font-size:16px;padding:10px 4px;text-align:center;box-shadow:var(--shadow);
+  }
+  .tl-body{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:14px 18px;box-shadow:0 6px 16px rgba(255,138,92,.08);
+  }
+  .tl-body h3{font-family:'Jua',sans-serif;font-size:18px;color:var(--plum);margin-bottom:4px;}
+  .tl-body p{font-size:14.5px;color:var(--soft);}
+  .tl-body .star{color:var(--sunset2);font-weight:bold;}
+  .tl-item.key .tl-body{border:2px solid var(--sunset2);background:#fff4f0;}
+
+  /* ===== CARDS ===== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:20px;box-shadow:0 8px 20px rgba(255,138,92,.08);
+  }
+  .card h3{font-family:'Jua',sans-serif;color:var(--plum);font-size:18px;margin-bottom:8px;display:flex;gap:8px;align-items:center;}
+  .card ul{list-style:none;}
+  .card li{font-size:14.5px;padding:5px 0 5px 22px;position:relative;color:var(--ink);}
+  .card li::before{content:"🍴";position:absolute;left:0;font-size:13px;}
+  .card.play li::before{content:"🎲";}
+  .card.thanks li::before{content:"💌";}
+  .card .price{color:var(--soft);font-size:13px;}
+  .pill{display:inline-block;background:#fff0e6;color:var(--sunset2);border-radius:999px;padding:2px 10px;font-size:12.5px;margin:2px 4px 2px 0;font-family:'Gaegu',cursive;font-weight:700;}
+
+  /* ===== REFLECTION ===== */
+  .reflect{
+    background:linear-gradient(135deg,#fff,#fff4ef);
+    border:2px solid var(--line);border-radius:24px;padding:24px;
+  }
+  .qrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:6px;}
+  .qbox{background:var(--card);border-radius:18px;padding:18px;border-left:6px solid var(--sunset1);box-shadow:0 6px 16px rgba(255,138,92,.08);}
+  .qbox .qnum{font-family:'Jua',sans-serif;color:var(--sunset2);font-size:15px;}
+  .qbox h4{font-family:'Jua',sans-serif;color:var(--plum);font-size:17px;margin:4px 0 6px;}
+  .qbox p{font-size:14px;color:var(--soft);}
+  .how{margin-top:18px;background:#fff;border-radius:16px;padding:16px 18px;border:1px dashed var(--line);}
+  .how b{color:var(--sunset2);}
+
+  /* ===== AWARDS ===== */
+  .awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+  .award{
+    background:linear-gradient(135deg,#fff,#fff8f0);border:1px solid var(--line);
+    border-radius:18px;padding:16px;text-align:center;box-shadow:0 6px 16px rgba(255,184,107,.14);
+  }
+  .award .ico{font-size:30px;}
+  .award h4{font-family:'Jua',sans-serif;color:var(--plum);font-size:15.5px;margin:6px 0 2px;}
+  .award p{font-size:12.5px;color:var(--soft);}
+
+  /* ===== TABLE ===== */
+  .tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);font-size:14.5px;}
+  .tbl th,.tbl td{padding:13px 14px;text-align:left;border-bottom:1px solid #ffe7d8;}
+  .tbl th{background:linear-gradient(135deg,var(--sunset1),var(--sunset2));color:#fff;font-family:'Jua',sans-serif;font-weight:400;}
+  .tbl td.amt{text-align:right;font-family:'Gaegu',cursive;font-weight:700;color:var(--plum);white-space:nowrap;}
+  .tbl tr:last-child td{border-bottom:none;}
+  .tbl tr.total td{background:#fff2ea;font-weight:bold;color:var(--sunset2);}
+  .note{font-size:13px;color:var(--soft);margin-top:8px;}
+
+  /* ===== CHECKLIST ===== */
+  .check{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .check .card li::before{content:"☐";color:var(--sunset1);font-size:15px;top:4px;}
+
+  /* ===== VENUE ===== */
+  .venue li::before{content:"📍";}
+
+  footer{
+    text-align:center;margin-top:54px;padding:28px;color:var(--soft);font-size:14px;
+    border-top:1px dashed var(--line);
+  }
+  footer .heart{color:var(--sunset2);font-family:'Gaegu',cursive;font-weight:700;font-size:18px;}
+
+  @media (max-width:520px){
+    .tl-item{grid-template-columns:70px 1fr;}
+    .tl-time{font-size:14px;}
+    .hero{padding:48px 16px 42px;border-radius:24px;}
+  }
+  @media print{
+    body{background:#fff;}
+    .hero{box-shadow:none;}
+    section{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="tag">🎓 20~30대 공동체 · 종강파티</span>
+    <h1>Re:WIND
+      <small>우리의 1학기, 되감아 보는 시즌 피날레</small>
+    </h1>
+    <div class="meta">
+      <span>👥 남 10 · 여 10 (총 20명)</span>
+      <span>🕕 저녁 18:00 ~ 22:30</span>
+      <span>🏠 파티룸</span>
+      <span>💸 1인 3만원 (총 60만)</span>
+    </div>
+  </header>
+
+  <div class="concept">
+    🎬 <b>컨셉 한 줄</b> — 한 학기를 한 편의 드라마 시즌처럼 <b>되감기(Rewind)</b> 합니다.
+    재밌는 게임·어워즈로 분위기를 띄우되, 중반엔 진솔하게 <b>성장 · 도전 · 감사</b>를 나누는
+    <b>재미 + 리프렉션</b> 종강파티예요. 술은 곁들이는 정도, 무게중심은 <b>액티비티 + 돌아보기</b> 입니다.
+  </div>
+
+  <!-- 1. TIMELINE -->
+  <section id="timeline">
+    <div class="sec-head"><span class="emoji">⏰</span><h2>하루 타임라인</h2><span class="num">01</span></div>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-time">18:00</div>
+        <div class="tl-body"><h3>입장 & 웰컴드링크 🍹</h3>
+          <p>도착 순서대로 네임택 작성 + "1학기 나를 표현하는 스티커" 붙이기. 가볍게 음료 들고 라운드 인사.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">18:20</div>
+        <div class="tl-body"><h3>저녁 식사 🍗</h3>
+          <p>배달·케이터링 세팅 완료. 자유롭게 먹으며 테이블별 근황 토크. (BGM: 잔잔한 시티팝)</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:10</div>
+        <div class="tl-body"><h3>아이스브레이킹 게임 🎲</h3>
+          <p>식사 마무리하며 가볍게. <span class="star">공통점 빙고</span> → <span class="star">밸런스 게임</span>으로 분위기 업.</p></div>
+      </div>
+      <div class="tl-item key">
+        <div class="tl-time">19:40</div>
+        <div class="tl-body"><h3>🌅 리프렉션 메인 — 한 학기 돌아보기</h3>
+          <p><b>이 파티의 심장.</b> 성장 / 도전 / 감사 3가지 질문으로 한 학기를 되감아요. (아래 5번 가이드 참고)</p></div>
+      </div>
+      <div class="tl-item key">
+        <div class="tl-time">20:30</div>
+        <div class="tl-body"><h3>🏆 Re:WIND 어워즈</h3>
+          <p>사전·현장 투표로 뽑는 재미 시상식. 시상자가 멘트와 함께 트로피(소품) 수여 + 폴라로이드 찰칵.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">21:10</div>
+        <div class="tl-body"><h3>단체 액티비티 게임 🤸</h3>
+          <p>남녀 섞은 4팀 대항전. <span class="star">스피드 퀴즈(우리끼리 챌린지)</span> + <span class="star">몸으로 말해요</span>.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">21:50</div>
+        <div class="tl-body"><h3>자유 뒤풀이 · 포토타임 · 롤링페이퍼 💌</h3>
+          <p>포토존에서 단체/소그룹 사진, 한 명씩 롤링페이퍼 채우기, 남은 안주·음료 정리하며 도란도란.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">22:30</div>
+        <div class="tl-body"><h3>마무리 단체사진 📸</h3>
+          <p>다같이 "한 학기 수고했어!" 단체샷 + 롤링페이퍼 전달. 정리 후 해산(또는 2차 자율).</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. FOOD -->
+  <section id="food">
+    <div class="sec-head"><span class="emoji">🍽️</span><h2>먹는 것</h2><span class="num">02</span></div>
+    <div class="grid">
+      <div class="card">
+        <h3>🍗 메인 (배달)</h3>
+        <ul>
+          <li>치킨 4마리 (후라이드·양념 반반) <span class="price">~8만</span></li>
+          <li>피자 L 3판 (불고기·페퍼로니·고구마) <span class="price">~7만</span></li>
+          <li>마라떡볶이·로제떡볶이 세트 <span class="price">~3만</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🥗 사이드 & 헬시</h3>
+        <ul>
+          <li>샐러드 대용량 2개 (채식·다이어트 배려)</li>
+          <li>과일 플래터 (수박·청포도·방울토마토)</li>
+          <li>나초·감자튀김·치즈볼 <span class="price">합계 ~4만</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🍰 디저트</h3>
+        <ul>
+          <li>"수고했어" 미니 케이크 (종강 메시지)</li>
+          <li>마카롱·약과·쿠키 디저트 박스</li>
+          <li>마시멜로·젤리 (게임 상품 겸용)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🍹 음료 (논알콜 우선)</h3>
+        <ul>
+          <li><span class="pill">무알콜</span> 탄산수·과일에이드·콜라·제로음료</li>
+          <li><span class="pill">곁들임</span> 맥주·하이볼·과일소주 (적정량)</li>
+          <li>생수·아이스 넉넉히 / 종이컵·얼음 준비</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">💡 20명 기준 — 치킨·피자는 1인 1.5조각 여유, 술 안 마시는 사람도 충분히 즐기도록 논알콜을 절반 이상 확보. 알레르기·비건은 사전 설문으로 체크.</p>
+  </section>
+
+  <!-- 3. PLAY -->
+  <section id="play">
+    <div class="sec-head"><span class="emoji">🎉</span><h2>노는 것 (액티비티)</h2><span class="num">03</span></div>
+    <div class="grid">
+      <div class="card play">
+        <h3>🧊 아이스브레이킹</h3>
+        <ul>
+          <li><b>공통점 빙고</b> — 5×5칸을 "올해 ○○한 사람" 으로 채우며 사인 받기</li>
+          <li><b>밸런스 게임</b> — 가벼운 양자택일로 편 가르고 이유 듣기</li>
+          <li><b>두 가지 진실 한 가지 거짓</b> — 한 학기 에피소드 버전</li>
+        </ul>
+      </div>
+      <div class="card play">
+        <h3>🤸 단체 게임 (4팀 대항)</h3>
+        <ul>
+          <li><b>우리끼리 스피드 퀴즈</b> — 공동체 추억·인물 맞히기</li>
+          <li><b>몸으로 말해요</b> — 한 학기 키워드 제시어</li>
+          <li><b>이어말하기 빙고</b> — 우승팀 디저트/굿즈 상품</li>
+        </ul>
+      </div>
+      <div class="card play">
+        <h3>📸 포토 & 무드</h3>
+        <ul>
+          <li>포토존 + 폴라로이드 즉석 인화</li>
+          <li>한 학기 사진 슬라이드쇼 (빔)</li>
+          <li>소품: 가랜드·반짝이 머리띠·말풍선 보드</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Jua',sans-serif;color:var(--sunset2);font-size:19px;margin:28px 0 14px;">🇰🇷 한국 2030 인기 게임 모음 (20명 · 혼성)</h3>
+
+    <h4 style="font-family:'Jua',sans-serif;color:var(--plum);font-size:16px;margin:8px 0 10px;">🍻 술게임 변형 <span style="font-size:13px;color:var(--soft);font-family:'Gowun Dodum';">— 벌칙은 미션·논알콜로 대체 가능</span></h4>
+    <div class="grid">
+      <div class="card play">
+        <h3>🤚 손병호 게임</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">"○○해본 사람 접어!" 다섯 손가락 다 접으면 벌칙. 서로 몰랐던 면 폭로돼서 빵 터짐. 종강 버전: "이번 학기 ○○한 사람".</li></ul>
+      </div>
+      <div class="card play">
+        <h3>👀 눈치 게임</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">랜덤으로 일어나 숫자 외치기, 겹치면 탈락. 20명이면 긴장감 최고. 빠르고 준비물 0.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>3️⃣ 369 / 369 변형</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">3·6·9에 박수. 변형으로 "베스킨라빈스 31", "아파트(층수 쌓기)"까지 콤보로 돌리면 분위기 후끈.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🍓 딸기 게임 / 바카스</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">"딸기 하나·딸기 둘" 박자 맞춰 이어가기. 박자감 게임이라 술 없이도 충분히 재밌음.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🔮 텔레파시 게임</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">진행자가 "치킨 하면?" 외치면 다같이 같은 답 외치기. 통하면 환호, 안 통하면 벌칙. 단합력 체크!</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🙅 이미지 게임 (순화 버전)</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">"가장 ○○할 것 같은 사람?" 동시에 손가락 지목. <b>긍정 질문만</b>으로 진행해 모두 기분 좋게.</li></ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Jua',sans-serif;color:var(--plum);font-size:16px;margin:20px 0 10px;">📱 폰 · 앱 활용 게임 <span style="font-size:13px;color:var(--soft);font-family:'Gowun Dodum';">— 무료 앱·웹으로 바로</span></h4>
+    <div class="grid">
+      <div class="card play">
+        <h3>🕵️ 라이어 게임</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">제시어를 모르는 '라이어'를 찾아내기. 앱으로 간편. 추리+연기 텐션이 2030 모임 단골.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🌃 마피아 게임</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">밤이 되면… 인원 많을수록 꿀잼. 사회자 1명 + 앱으로 직업 배정. 20명에 딱.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🎧 고요 속의 외침</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">노이즈캔슬링 이어폰 끼고 입모양만으로 단어 전달. 팀 대항으로 하면 폭소 보장. 영상 남기기 최고.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>✏️ 캐치마인드 / 텔레스트레이션</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">그림 그려 단어 맞히기. 그림+말 전달 변형(텔레스트레이션)은 결과물이 산으로 가서 더 웃김.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🎼 인트로 퀴즈 (1초 듣고 맞히기)</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">K-팝 인트로 0.5~1초 듣고 제목 맞히기. 세대별 명곡 섹션으로 나누면 다같이 떼창.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>📷 폰 사진 게임</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">"갤러리 47번째 사진 공개", "최근 검색어 보여주기" 등 랜덤 미션. 의외의 모습에 빵 터짐.</li></ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Jua',sans-serif;color:var(--plum);font-size:16px;margin:20px 0 10px;">🎤 K-컬처 · 액티브 게임</h4>
+    <div class="grid">
+      <div class="card play">
+        <h3>💃 랜덤 플레이 댄스</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">아는 노래 나오면 튀어나가 춤추기! 2030 모임 인기 1위. 한 학기 추억 영상으로 딱.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🎙️ 노래방 미션</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">파티룸 노래방 있으면 "○○년도 발라드만", "듀엣 랜덤매칭" 미션곡으로. 없으면 유튜브로.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🧩 인물 빙고 / 우리끼리 퀴즈</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">"이 멤버의 MBTI는?", "이 사진 속 장소는?" 공동체 한정 문제로 추억 소환 + 친밀도 UP.</li></ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Jua',sans-serif;color:var(--plum);font-size:16px;margin:20px 0 10px;">🎲 보드게임 <span style="font-size:13px;color:var(--soft);font-family:'Gowun Dodum';">— 소그룹·뒤풀이용</span></h4>
+    <div class="grid">
+      <div class="card play">
+        <h3>⚡ 할리갈리 / 다빈치코드</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">규칙 쉬워 누구나 바로. 순발력 게임이라 초면도 금방 친해짐.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🕶️ 코드네임 / 딕싯</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">팀 추리·감성 게임. 한 테이블 6~8명까지 OK. 뒤풀이 때 소그룹으로 돌리기 좋음.</li></ul>
+      </div>
+      <div class="card play">
+        <h3>🖍️ 텔레스트레이션</h3>
+        <ul style="list-style:none;"><li style="padding-left:0;">그림→단어→그림 전달 릴레이. 결과 공개 때 최고의 폭소. 인원 많아도 OK.</li></ul>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:14px;">🌟 <b>추천 진행 순서</b> — 식사 직후엔 가볍게 ① <b>눈치게임·텔레파시</b>로 워밍업 → 분위기 오르면 ② <b>고요 속의 외침·랜덤 플레이 댄스</b>(영상 필수!) → 팀 대항 ③ <b>스피드 퀴즈·캐치마인드</b> → 뒤풀이엔 소그룹 ④ <b>마피아·보드게임</b>. 술은 마시는 사람만 곁들이고, <b>벌칙은 애교·미션·논알콜 원샷</b>으로 모두가 편하게!</p>
+  </section>
+
+  <!-- 4. AWARDS -->
+  <section id="awards">
+    <div class="sec-head"><span class="emoji">🏆</span><h2>Re:WIND 어워즈</h2><span class="num">04</span></div>
+    <p class="note" style="margin-bottom:14px;">사전 구글폼 투표(3~4부문) + 현장 즉석 부문(2개). 시상자가 짧은 수상 멘트와 함께 트로피 소품 수여 → 폴라로이드 인증샷. 부정적 의미 상은 제외, 모두가 웃을 수 있는 따뜻한 상으로!</p>
+    <div class="awards">
+      <div class="award"><div class="ico">🌟</div><h4>가장 성장한 사람</h4><p>한 학기 동안 부쩍 큰 멤버</p></div>
+      <div class="award"><div class="ico">🔥</div><h4>도전왕</h4><p>새로운 걸 가장 많이 시도</p></div>
+      <div class="award"><div class="ico">🥰</div><h4>분위기 메이커</h4><p>늘 에너지를 채워준 사람</p></div>
+      <div class="award"><div class="ico">🙌</div><h4>출석왕</h4><p>한 번도 빠지지 않은 성실상</p></div>
+      <div class="award"><div class="ico">💡</div><h4>아이디어 뱅크</h4><p>좋은 제안을 많이 낸 사람</p></div>
+      <div class="award"><div class="ico">🤝</div><h4>숨은 조력자</h4><p>보이지 않게 챙겨준 사람</p></div>
+    </div>
+  </section>
+
+  <!-- 5. REFLECTION -->
+  <section id="reflect">
+    <div class="sec-head"><span class="emoji">🌅</span><h2>리프렉션 가이드 (메인 코너)</h2><span class="num">05</span></div>
+    <div class="reflect">
+      <p style="color:var(--soft);margin-bottom:4px;">불 살짝 낮추고 잔잔한 BGM. 진행자가 3가지 질문을 안내하면, 각자 카드에 적은 뒤 원형으로 돌아가며 1~2분씩 나눕니다. (20명이면 4~5명 소그룹 동시 진행 후 대표 공유 추천)</p>
+      <div class="qrow">
+        <div class="qbox"><div class="qnum">Q1</div><h4>나는 어떻게 성장했나</h4><p>한 학기 전의 나와 지금의 나, 무엇이 달라졌나요? 작은 변화도 좋아요.</p></div>
+        <div class="qbox"><div class="qnum">Q2</div><h4>무엇에 도전했나</h4><p>올 학기 새롭게 시도한 것, 용기 냈던 순간은 무엇이었나요?</p></div>
+        <div class="qbox"><div class="qnum">Q3</div><h4>감사했던 일</h4><p>고마운 사람·순간·경험 하나를 떠올려 구체적으로 나눠요.</p></div>
+      </div>
+      <div class="how">
+        <p>🎯 <b>기본 진행 방식</b></p>
+        <ul style="list-style:none;margin-top:6px;font-size:14.5px;color:var(--ink);">
+          <li>① <b>한 학기 타임라인 벽</b> — 큰 전지에 월별 칸을 그려두고, 각자 기억에 남는 순간을 포스트잇으로 붙이기</li>
+          <li>② <b>감사 카드</b> — 3가지 질문 답을 카드에 적어 소그룹에서 나누고, 원하면 전체 공유</li>
+          <li>③ <b>롤링페이퍼</b> — 뒤풀이 때 한 명씩 돌려가며 응원·감사 메시지 채우기 → 마무리에 전달</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Jua',sans-serif;color:var(--sunset2);font-size:19px;margin:26px 0 14px;">💡 더 추천하는 리플렉션 아이디어 (2030 감성)</h3>
+    <div class="grid">
+      <div class="card thanks">
+        <h3>🔤 올해의 한 단어</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">나의 1학기를 <b>한 단어·사자성어·이모지</b>로 표현하고 이유 말하기. 큰 종이에 모아 붙이면 "우리 학기 워드클라우드" 완성.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>📱 멘티미터 워드클라우드</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;"><b>멘티미터·슬라이도</b>로 "이번 학기 떠오르는 단어?" 실시간 투표 → 빔에 워드클라우드가 커지는 걸 함께 보기. 익명이라 솔직해져요.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>🎵 한 학기 플레이리스트</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">각자 <b>이 학기를 대표하는 노래 1곡</b> 추천 + 한 줄 사연. 공유 플레이리스트로 만들어 두면 두고두고 추억소환.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>📸 한 학기 베스트샷</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">갤러리에서 <b>올해의 사진 1장</b> 사전 제출 → 슬라이드쇼로 띄우며 "이때 무슨 일이었게?" 사연 토크.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>👏 칭찬 샤워</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">한 명씩 가운데 앉으면 나머지가 <b>장점·고마웠던 점을 쏟아내기</b>. 30초 타이머. 듣는 사람도 말하는 사람도 뭉클.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>✉️ 다음 학기의 나에게</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;"><b>타임캡슐 편지</b> — 다음 학기 목표·다짐을 적어 밀봉. 다음 모임 때 개봉해 읽으면 성장이 한눈에.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>📈 나의 성장 그래프</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">학기 초~지금까지 <b>감정·성장 곡선</b>을 그래프로 그리고, 고점·저점 순간을 소그룹에 공유. 비주얼이라 몰입↑.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>🔁 감사 릴레이</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">옆 사람에게 <b>고마웠던 점 한 가지</b> 말하고 바통 넘기기. 꼬리물기로 전원이 한 번씩 칭찬 주고받기.</li>
+        </ul>
+      </div>
+      <div class="card thanks">
+        <h3>🙊 익명 메시지함</h3>
+        <ul style="list-style:none;">
+          <li style="padding-left:0;">쪽지함(또는 슬라이도)에 <b>익명으로 한마디</b> — 못다한 감사·고백·웃긴 폭로. 진행자가 랜덤으로 뽑아 읽기.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px;">🌟 <b>추천 조합</b> — ① 멘티미터 워드클라우드(가볍게 시작) → ② 3질문 감사 카드 + 칭찬 샤워(메인, 뭉클) → ③ 다음 학기의 나에게 편지(마무리, 다짐). 20명은 5명씩 4개 소그룹으로 나눠 동시 진행 후 대표 공유하면 시간·몰입 둘 다 잡혀요.</p>
+  </section>
+
+  <!-- 6. DECO -->
+  <section id="deco">
+    <div class="sec-head"><span class="emoji">✨</span><h2>데코 & 무드</h2><span class="num">06</span></div>
+    <div class="grid">
+      <div class="card">
+        <h3 style="display:block;">🎀 데코</h3>
+        <p style="font-size:14.5px;color:var(--ink);">선셋 톤 가랜드 + 풍선(코랄·골드), 테이블 캔들·LED 스트링으로 따뜻한 무드. 입구에 "Re:WIND" 웰컴 보드.</p>
+      </div>
+      <div class="card">
+        <h3 style="display:block;">🖼️ 포토존</h3>
+        <p style="font-size:14.5px;color:var(--ink);">컨셉 백드롭 + 말풍선 소품 + 폴라로이드. 벽 한 면은 "한 학기 사진 갤러리"로 꾸며 추억 소환.</p>
+      </div>
+      <div class="card">
+        <h3 style="display:block;">🎵 플레이리스트</h3>
+        <p style="font-size:14.5px;color:var(--ink);">식사: 잔잔한 시티팝/어쿠스틱 · 게임: 신나는 K-팝 · 리프렉션: 잔잔한 발라드/Lo-fi · 마무리: 따뜻한 엔딩곡.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. BUDGET -->
+  <section id="budget">
+    <div class="sec-head"><span class="emoji">💸</span><h2>예산 분배표</h2><span class="num">07</span></div>
+    <table class="tbl">
+      <thead><tr><th>항목</th><th>내용</th><th style="text-align:right;">예상</th></tr></thead>
+      <tbody>
+        <tr><td>파티룸 대여</td><td>20명 · 4.5시간 (빔·음향·주방)</td><td class="amt">200,000</td></tr>
+        <tr><td>음식</td><td>치킨·피자·분식·샐러드·디저트</td><td class="amt">220,000</td></tr>
+        <tr><td>음료</td><td>논알콜·주류·생수·얼음</td><td class="amt">80,000</td></tr>
+        <tr><td>데코/소품</td><td>가랜드·풍선·포토존·네임택·롤링페이퍼</td><td class="amt">50,000</td></tr>
+        <tr><td>어워즈 상품</td><td>부문별 소소한 굿즈·트로피 소품</td><td class="amt">50,000</td></tr>
+        <tr class="total"><td>합계</td><td>1인 약 30,000원 × 20명</td><td class="amt">600,000</td></tr>
+      </tbody>
+    </table>
+    <p class="note">💡 1인 2만원으로 줄이려면: 파티룸 평일/낮 시간대(↓5만), 케이터링 대신 배달 위주(↓7만)로 총 40만대 가능. 반대로 4만원이면 케이터링 핑거푸드·전문 사진사·굿즈 업그레이드로 80만대까지 여유.</p>
+  </section>
+
+  <!-- 8. CHECKLIST -->
+  <section id="checklist">
+    <div class="sec-head"><span class="emoji">✅</span><h2>준비 체크리스트</h2><span class="num">08</span></div>
+    <div class="check">
+      <div class="card">
+        <h3 style="display:block;">📅 사전 (1~2주 전)</h3>
+        <ul>
+          <li>파티룸 예약 (20명 수용 확인)</li>
+          <li>참석 확정 + 알레르기/비건 설문</li>
+          <li>어워즈 사전 투표 폼 발송</li>
+          <li>한 학기 사진 취합 (슬라이드쇼용)</li>
+          <li>플레이리스트 제작</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="display:block;">🛒 준비물</h3>
+        <ul>
+          <li>네임택·스티커·매직·전지·포스트잇</li>
+          <li>롤링페이퍼·감사 카드·펜</li>
+          <li>데코(가랜드·풍선·LED)·포토 소품</li>
+          <li>폴라로이드·필름·트로피 소품</li>
+          <li>종이컵·접시·물티슈·쓰레기봉투</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="display:block;">🙋 역할 분담</h3>
+        <ul>
+          <li>총괄 MC / 타임키퍼 1명</li>
+          <li>음식·음료 주문 담당 1명</li>
+          <li>게임·어워즈 진행 1~2명</li>
+          <li>사진·기록 담당 1명</li>
+          <li>데코·정리 담당 2명</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. VENUE -->
+  <section id="venue">
+    <div class="sec-head"><span class="emoji">🏠</span><h2>파티룸 추천 가이드</h2><span class="num">09</span></div>
+    <div class="grid">
+      <div class="card venue">
+        <h3 style="display:block;">📍 선택 기준</h3>
+        <ul>
+          <li>20명 여유 수용 (최대인원 25~30 권장)</li>
+          <li>빔프로젝터 + 음향 시스템 (필수)</li>
+          <li>주방·냉장고·전자레인지 (음식 세팅)</li>
+          <li>테이블·좌식 공간 (식사+원형 토크)</li>
+          <li>외부음식 반입 가능 여부 확인</li>
+        </ul>
+      </div>
+      <div class="card venue">
+        <h3 style="display:block;">🔎 찾는 법</h3>
+        <ul>
+          <li>스페이스클라우드 / 아웃룸 / 네이버 예약</li>
+          <li>"○○역 파티룸 20인" 검색 + 후기 확인</li>
+          <li>인스타 #파티룸추천 으로 분위기 체크</li>
+          <li>역세권·주차·심야 이용 가능 여부</li>
+        </ul>
+      </div>
+      <div class="card venue">
+        <h3 style="display:block;">💰 예약 팁</h3>
+        <ul>
+          <li>저녁 4.5시간 ≈ 15~25만 (지역차 큼)</li>
+          <li>평일·이른 시간 할인 활용</li>
+          <li>보증금·청소비·초과인원 요금 사전 확인</li>
+          <li>최소 1~2주 전 예약 (주말 빨리 마감)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="heart">한 학기 정말 수고 많았어요 🌅</p>
+    <p>Re:WIND — 우리의 1학기 시즌 피날레 · 종강파티 기획안</p>
+  </footer>
+
+</div>
+</body>
+</html>
