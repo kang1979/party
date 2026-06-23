@@ -174,10 +174,101 @@
     body{background:#fff;}
     .hero{box-shadow:none;}
     section{break-inside:avoid;}
+    .topbar,.slide-nav,.view-toggle,.duty-tools{display:none;}
   }
+
+  /* ===== TOPBAR (현재시간 + 보기전환) ===== */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:rgba(255,246,236,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:9px 16px;
+  }
+  .clock{font-family:'Gaegu',cursive;font-weight:700;color:var(--plum);font-size:15px;display:flex;align-items:center;gap:7px;}
+  .clock .dot{width:9px;height:9px;border-radius:50%;background:var(--sunset2);animation:pulse 1s infinite;flex:none;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,94,120,.55);}70%{box-shadow:0 0 0 7px rgba(255,94,120,0);}100%{box-shadow:0 0 0 0 rgba(255,94,120,0);}}
+  .view-toggle{
+    border:none;cursor:pointer;font-family:'Jua',sans-serif;font-size:13.5px;color:#fff;
+    background:linear-gradient(135deg,var(--sunset1),var(--sunset2));
+    padding:8px 15px;border-radius:999px;box-shadow:var(--shadow);white-space:nowrap;
+  }
+  .view-toggle:active{transform:scale(.96);}
+
+  /* ===== MAP BUTTON ===== */
+  .map-btn{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-family:'Jua',sans-serif;font-size:13px;color:#fff;text-decoration:none;
+    background:linear-gradient(135deg,#2db400,#179a3a);
+    padding:8px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(45,180,0,.28);
+  }
+  .map-btn:active{transform:scale(.96);}
+  .map-btn .pin{font-size:14px;}
+
+  /* ===== DUTY TABLE ===== */
+  .duty-tools{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px;}
+  .duty-btn{
+    border:1px solid var(--line);background:var(--card);cursor:pointer;
+    font-family:'Gowun Dodum',sans-serif;font-size:13px;color:var(--plum);
+    padding:8px 14px;border-radius:999px;
+  }
+  .duty-btn.warn{color:var(--sunset2);border-color:#ffd0d0;}
+  .duty-btn:active{transform:scale(.97);}
+  .duty-wrap{overflow-x:auto;border-radius:18px;box-shadow:var(--shadow);}
+  table.duty{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);font-size:14.5px;min-width:430px;}
+  table.duty th,table.duty td{padding:0;border-bottom:1px solid #ffe7d8;border-right:1px solid #ffe7d8;position:relative;vertical-align:middle;}
+  table.duty th:last-child,table.duty td:last-child{border-right:none;}
+  table.duty tr:last-child td{border-bottom:none;}
+  table.duty thead th{background:linear-gradient(135deg,var(--sunset1),var(--sunset2));color:#fff;}
+  table.duty .cell{padding:13px 30px 13px 14px;min-height:46px;outline:none;}
+  table.duty .cell:focus{background:#fff4ef;box-shadow:inset 0 0 0 2px var(--sunset1);}
+  table.duty thead .cell{font-family:'Jua',sans-serif;font-weight:400;color:#fff;}
+  table.duty tbody td:first-child .cell{font-family:'Jua',sans-serif;color:var(--plum);background:#fff6ef;padding-right:14px;}
+  table.duty .cell:empty::before{content:"입력…";color:#c9b3bf;}
+  table.duty thead .cell:empty::before{color:rgba(255,255,255,.7);}
+  .col-del{position:absolute;top:6px;right:6px;border:none;background:rgba(0,0,0,.12);color:#fff;width:18px;height:18px;border-radius:50%;cursor:pointer;font-size:10px;line-height:1;padding:0;}
+  .row-del{border:none;background:transparent;color:var(--sunset2);cursor:pointer;font-size:15px;padding:0 6px;}
+  td.row-del-cell{border-right:none;width:34px;text-align:center;}
+  th.row-del-cell{background:transparent !important;border-right:none;}
+
+  /* ===== SLIDE MODE (가로 보기) ===== */
+  .slide-nav{display:none;}
+  body.slide-mode{overflow:hidden;}
+  body.slide-mode .topbar{position:fixed;left:0;right:0;top:0;}
+  body.slide-mode .wrap{
+    max-width:none;margin:0;padding:54px 0 0;height:100vh;
+    display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  }
+  body.slide-mode .wrap > *{
+    flex:0 0 100%;width:100%;height:calc(100vh - 54px);
+    overflow-y:auto;scroll-snap-align:start;
+    margin:0 !important;padding:22px 20px 90px;
+  }
+  body.slide-mode .wrap > *::-webkit-scrollbar{width:0;}
+  body.slide-mode .hero{border-radius:0;}
+  body.slide-mode .slide-nav{
+    display:flex;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+    gap:12px;z-index:60;align-items:center;
+  }
+  .slide-nav button{
+    border:none;cursor:pointer;width:48px;height:48px;border-radius:50%;color:#fff;font-size:24px;line-height:1;
+    background:linear-gradient(135deg,var(--sunset1),var(--sunset2));box-shadow:var(--shadow);
+  }
+  .slide-nav button:active{transform:scale(.92);}
+  .slide-nav .page{font-family:'Gaegu',cursive;font-weight:700;color:var(--plum);background:rgba(255,255,255,.92);padding:8px 14px;border-radius:999px;box-shadow:var(--shadow);font-size:15px;}
+
+  /* ===== TOAST ===== */
+  #toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--plum);color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:90;box-shadow:var(--shadow);}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="clock"><span class="dot"></span><span id="clock-time">시간 불러오는 중…</span></div>
+  <button class="view-toggle" id="viewToggle">🎞 가로 슬라이드</button>
+</div>
+
 <div class="wrap">
 
   <!-- HERO -->
@@ -187,10 +278,10 @@
       <small>우리의 1학기, 되감아 보는 시즌 피날레</small>
     </h1>
     <div class="meta">
-      <span>👥 남 10 · 여 10 (총 20명)</span>
-      <span>🕕 저녁 18:00 ~ 22:30</span>
-      <span>🏠 파티룸</span>
-      <span>💸 1인 3만원 (총 60만)</span>
+      <span>🕔 17:00 ~ 23:30</span>
+      <span>🍽️ 애슐리퀸즈 청량리</span>
+      <span>🎳 유타BK볼링장</span>
+      <span>🎤 노래바 (자유참가)</span>
     </div>
   </header>
 
@@ -202,89 +293,64 @@
 
   <!-- 1. TIMELINE -->
   <section id="timeline">
-    <div class="sec-head"><span class="emoji">⏰</span><h2>하루 타임라인</h2><span class="num">01</span></div>
+    <div class="sec-head"><span class="emoji">⏰</span><h2>종강파티 일정</h2><span class="num">01</span></div>
     <div class="tl">
       <div class="tl-item">
-        <div class="tl-time">18:00</div>
-        <div class="tl-body"><h3>입장 & 웰컴드링크 🍹</h3>
-          <p>도착 순서대로 네임택 작성 + "1학기 나를 표현하는 스티커" 붙이기. 가볍게 음료 들고 라운드 인사.</p></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">18:20</div>
-        <div class="tl-body"><h3>저녁 식사 🍗</h3>
-          <p>배달·케이터링 세팅 완료. 자유롭게 먹으며 테이블별 근황 토크. (BGM: 잔잔한 시티팝)</p></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">19:10</div>
-        <div class="tl-body"><h3>아이스브레이킹 게임 🎲</h3>
-          <p>식사 마무리하며 가볍게. <span class="star">공통점 빙고</span> → <span class="star">밸런스 게임</span>으로 분위기 업.</p></div>
+        <div class="tl-time">17:00</div>
+        <div class="tl-body"><h3>학사 출발 🚶</h3>
+          <p>안암학사교회 앞에서 모여 다같이 출발! 늦지 않게 시간 엄수해요.</p>
+          <a class="map-btn" target="_blank" rel="noopener" data-route data-sname="안암학사교회" data-sx="127.0265" data-sy="37.5836" data-ename="애슐리퀸즈 청량리" data-ex="127.0478" data-ey="37.5803"><span class="pin">🧭</span> 네이버 길찾기 · 안암학사교회 → 애슐리퀸즈</a>
+        </div>
       </div>
       <div class="tl-item key">
-        <div class="tl-time">19:40</div>
-        <div class="tl-body"><h3>🌅 리프렉션 메인 — 한 학기 돌아보기</h3>
-          <p><b>이 파티의 심장.</b> 성장 / 도전 / 감사 3가지 질문으로 한 학기를 되감아요. (아래 5번 가이드 참고)</p></div>
+        <div class="tl-time">17:30</div>
+        <div class="tl-body"><h3>애슐리퀸즈 청량리 🍽️</h3>
+          <p>저녁 뷔페로 든든하게! <b>롯데백화점 청량리점</b> (왕산로 214, 청량리역). 천천히 먹으며 근황 토크.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-body"><h3>학사로 이동 🚌</h3>
+          <p>식사 후 다시 안암학사로 복귀.</p></div>
       </div>
       <div class="tl-item key">
-        <div class="tl-time">20:30</div>
-        <div class="tl-body"><h3>🏆 Re:WIND 어워즈</h3>
-          <p>사전·현장 투표로 뽑는 재미 시상식. 시상자가 멘트와 함께 트로피(소품) 수여 + 폴라로이드 찰칵.</p></div>
+        <div class="tl-time">19:30</div>
+        <div class="tl-body"><h3>🌅 활동 &amp; 리플렉션 &amp; 단체사진</h3>
+          <p><b>오늘의 하이라이트.</b> 함께 게임·활동으로 놀고, 한 학기를 돌아보는 리플렉션, 그리고 단체사진까지! (아래 <b>노는 것</b> · <b>리플렉션 가이드</b> 참고)</p>
+          <p class="star">★ 이 시간에 방중(방학 중) 식사·청소 당번도 함께 정해요 → 아래 <b>당번표</b></p></div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">21:10</div>
-        <div class="tl-body"><h3>단체 액티비티 게임 🤸</h3>
-          <p>남녀 섞은 4팀 대항전. <span class="star">스피드 퀴즈(우리끼리 챌린지)</span> + <span class="star">몸으로 말해요</span>.</p></div>
+        <div class="tl-time">21:30</div>
+        <div class="tl-body"><h3>볼링 🎳</h3>
+          <p><b>성신여대 유타BK볼링장</b> (유타몰, 동소문로 106). 팀 나눠 한 게임 신나게!</p>
+          <a class="map-btn" target="_blank" rel="noopener" data-route data-sname="안암학사교회" data-sx="127.0265" data-sy="37.5836" data-ename="유타BK볼링장 성신여대" data-ex="127.0166" data-ey="37.5921"><span class="pin">🧭</span> 네이버 길찾기 · 안암학사교회 → 유타BK볼링장</a>
+        </div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">21:50</div>
-        <div class="tl-body"><h3>자유 뒤풀이 · 포토타임 · 롤링페이퍼 💌</h3>
-          <p>포토존에서 단체/소그룹 사진, 한 명씩 롤링페이퍼 채우기, 남은 안주·음료 정리하며 도란도란.</p></div>
+        <div class="tl-time">23:00</div>
+        <div class="tl-body"><h3>귀가 🏠</h3>
+          <p>공식 일정 마무리! 조심히 귀가해요.</p></div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">22:30</div>
-        <div class="tl-body"><h3>마무리 단체사진 📸</h3>
-          <p>다같이 "한 학기 수고했어!" 단체샷 + 롤링페이퍼 전달. 정리 후 해산(또는 2차 자율).</p></div>
+        <div class="tl-time">23:30</div>
+        <div class="tl-body"><h3>노래바 🎤 <span style="font-size:13px;color:var(--soft);">(자유 참가)</span></h3>
+          <p>더 놀고 싶은 사람들끼리 2차 노래바로! 자유롭게 참여하세요.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 2. FOOD -->
-  <section id="food">
-    <div class="sec-head"><span class="emoji">🍽️</span><h2>먹는 것</h2><span class="num">02</span></div>
-    <div class="grid">
-      <div class="card">
-        <h3>🍗 메인 (배달)</h3>
-        <ul>
-          <li>치킨 4마리 (후라이드·양념 반반) <span class="price">~8만</span></li>
-          <li>피자 L 3판 (불고기·페퍼로니·고구마) <span class="price">~7만</span></li>
-          <li>마라떡볶이·로제떡볶이 세트 <span class="price">~3만</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>🥗 사이드 & 헬시</h3>
-        <ul>
-          <li>샐러드 대용량 2개 (채식·다이어트 배려)</li>
-          <li>과일 플래터 (수박·청포도·방울토마토)</li>
-          <li>나초·감자튀김·치즈볼 <span class="price">합계 ~4만</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>🍰 디저트</h3>
-        <ul>
-          <li>"수고했어" 미니 케이크 (종강 메시지)</li>
-          <li>마카롱·약과·쿠키 디저트 박스</li>
-          <li>마시멜로·젤리 (게임 상품 겸용)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>🍹 음료 (논알콜 우선)</h3>
-        <ul>
-          <li><span class="pill">무알콜</span> 탄산수·과일에이드·콜라·제로음료</li>
-          <li><span class="pill">곁들임</span> 맥주·하이볼·과일소주 (적정량)</li>
-          <li>생수·아이스 넉넉히 / 종이컵·얼음 준비</li>
-        </ul>
-      </div>
+  <!-- 2. DUTY -->
+  <section id="duty">
+    <div class="sec-head"><span class="emoji">🧹</span><h2>방중 식사 · 청소 당번표</h2><span class="num">02</span></div>
+    <p class="note" style="margin-bottom:12px;">방학 중 <b>요일별(일요일 제외)</b> 식사·청소 당번을 정해요. 칸을 눌러 바로 입력하고, <b>열·행도 자유롭게 추가·삭제</b>할 수 있어요. ✏️ 입력 내용은 <b>이 기기 브라우저에 자동 저장</b>돼요(여러 명이 실시간으로 공유되진 않아요 — 다 정한 뒤 <b>📋 복사</b>해서 단톡에 공유하세요!).</p>
+    <div class="duty-tools">
+      <button class="duty-btn" id="addRow">+ 행 추가</button>
+      <button class="duty-btn" id="addCol">+ 열 추가</button>
+      <button class="duty-btn" id="copyDuty">📋 텍스트로 복사</button>
+      <button class="duty-btn warn" id="resetDuty">↺ 초기화</button>
     </div>
-    <p class="note">💡 20명 기준 — 치킨·피자는 1인 1.5조각 여유, 술 안 마시는 사람도 충분히 즐기도록 논알콜을 절반 이상 확보. 알레르기·비건은 사전 설문으로 체크.</p>
+    <div class="duty-wrap">
+      <table class="duty" id="dutyTable"></table>
+    </div>
   </section>
 
   <!-- 3. PLAY -->
@@ -410,23 +476,9 @@
     <p class="note" style="margin-top:14px;">🌟 <b>추천 진행 순서</b> — 식사 직후엔 가볍게 ① <b>눈치게임·텔레파시</b>로 워밍업 → 분위기 오르면 ② <b>고요 속의 외침·랜덤 플레이 댄스</b>(영상 필수!) → 팀 대항 ③ <b>스피드 퀴즈·캐치마인드</b> → 뒤풀이엔 소그룹 ④ <b>마피아·보드게임</b>. 술은 마시는 사람만 곁들이고, <b>벌칙은 애교·미션·논알콜 원샷</b>으로 모두가 편하게!</p>
   </section>
 
-  <!-- 4. AWARDS -->
-  <section id="awards">
-    <div class="sec-head"><span class="emoji">🏆</span><h2>Re:WIND 어워즈</h2><span class="num">04</span></div>
-    <p class="note" style="margin-bottom:14px;">사전 구글폼 투표(3~4부문) + 현장 즉석 부문(2개). 시상자가 짧은 수상 멘트와 함께 트로피 소품 수여 → 폴라로이드 인증샷. 부정적 의미 상은 제외, 모두가 웃을 수 있는 따뜻한 상으로!</p>
-    <div class="awards">
-      <div class="award"><div class="ico">🌟</div><h4>가장 성장한 사람</h4><p>한 학기 동안 부쩍 큰 멤버</p></div>
-      <div class="award"><div class="ico">🔥</div><h4>도전왕</h4><p>새로운 걸 가장 많이 시도</p></div>
-      <div class="award"><div class="ico">🥰</div><h4>분위기 메이커</h4><p>늘 에너지를 채워준 사람</p></div>
-      <div class="award"><div class="ico">🙌</div><h4>출석왕</h4><p>한 번도 빠지지 않은 성실상</p></div>
-      <div class="award"><div class="ico">💡</div><h4>아이디어 뱅크</h4><p>좋은 제안을 많이 낸 사람</p></div>
-      <div class="award"><div class="ico">🤝</div><h4>숨은 조력자</h4><p>보이지 않게 챙겨준 사람</p></div>
-    </div>
-  </section>
-
-  <!-- 5. REFLECTION -->
+  <!-- 4. REFLECTION -->
   <section id="reflect">
-    <div class="sec-head"><span class="emoji">🌅</span><h2>리프렉션 가이드 (메인 코너)</h2><span class="num">05</span></div>
+    <div class="sec-head"><span class="emoji">🌅</span><h2>리플렉션 가이드 (메인 코너)</h2><span class="num">04</span></div>
     <div class="reflect">
       <p style="color:var(--soft);margin-bottom:4px;">불 살짝 낮추고 잔잔한 BGM. 진행자가 3가지 질문을 안내하면, 각자 카드에 적은 뒤 원형으로 돌아가며 1~2분씩 나눕니다. (20명이면 4~5명 소그룹 동시 진행 후 대표 공유 추천)</p>
       <div class="qrow">
@@ -504,119 +556,178 @@
     <p class="note" style="margin-top:14px;">🌟 <b>추천 조합</b> — ① 멘티미터 워드클라우드(가볍게 시작) → ② 3질문 감사 카드 + 칭찬 샤워(메인, 뭉클) → ③ 다음 학기의 나에게 편지(마무리, 다짐). 20명은 5명씩 4개 소그룹으로 나눠 동시 진행 후 대표 공유하면 시간·몰입 둘 다 잡혀요.</p>
   </section>
 
-  <!-- 6. DECO -->
-  <section id="deco">
-    <div class="sec-head"><span class="emoji">✨</span><h2>데코 & 무드</h2><span class="num">06</span></div>
-    <div class="grid">
-      <div class="card">
-        <h3 style="display:block;">🎀 데코</h3>
-        <p style="font-size:14.5px;color:var(--ink);">선셋 톤 가랜드 + 풍선(코랄·골드), 테이블 캔들·LED 스트링으로 따뜻한 무드. 입구에 "Re:WIND" 웰컴 보드.</p>
-      </div>
-      <div class="card">
-        <h3 style="display:block;">🖼️ 포토존</h3>
-        <p style="font-size:14.5px;color:var(--ink);">컨셉 백드롭 + 말풍선 소품 + 폴라로이드. 벽 한 면은 "한 학기 사진 갤러리"로 꾸며 추억 소환.</p>
-      </div>
-      <div class="card">
-        <h3 style="display:block;">🎵 플레이리스트</h3>
-        <p style="font-size:14.5px;color:var(--ink);">식사: 잔잔한 시티팝/어쿠스틱 · 게임: 신나는 K-팝 · 리프렉션: 잔잔한 발라드/Lo-fi · 마무리: 따뜻한 엔딩곡.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. BUDGET -->
-  <section id="budget">
-    <div class="sec-head"><span class="emoji">💸</span><h2>예산 분배표</h2><span class="num">07</span></div>
-    <table class="tbl">
-      <thead><tr><th>항목</th><th>내용</th><th style="text-align:right;">예상</th></tr></thead>
-      <tbody>
-        <tr><td>파티룸 대여</td><td>20명 · 4.5시간 (빔·음향·주방)</td><td class="amt">200,000</td></tr>
-        <tr><td>음식</td><td>치킨·피자·분식·샐러드·디저트</td><td class="amt">220,000</td></tr>
-        <tr><td>음료</td><td>논알콜·주류·생수·얼음</td><td class="amt">80,000</td></tr>
-        <tr><td>데코/소품</td><td>가랜드·풍선·포토존·네임택·롤링페이퍼</td><td class="amt">50,000</td></tr>
-        <tr><td>어워즈 상품</td><td>부문별 소소한 굿즈·트로피 소품</td><td class="amt">50,000</td></tr>
-        <tr class="total"><td>합계</td><td>1인 약 30,000원 × 20명</td><td class="amt">600,000</td></tr>
-      </tbody>
-    </table>
-    <p class="note">💡 1인 2만원으로 줄이려면: 파티룸 평일/낮 시간대(↓5만), 케이터링 대신 배달 위주(↓7만)로 총 40만대 가능. 반대로 4만원이면 케이터링 핑거푸드·전문 사진사·굿즈 업그레이드로 80만대까지 여유.</p>
-  </section>
-
-  <!-- 8. CHECKLIST -->
-  <section id="checklist">
-    <div class="sec-head"><span class="emoji">✅</span><h2>준비 체크리스트</h2><span class="num">08</span></div>
-    <div class="check">
-      <div class="card">
-        <h3 style="display:block;">📅 사전 (1~2주 전)</h3>
-        <ul>
-          <li>파티룸 예약 (20명 수용 확인)</li>
-          <li>참석 확정 + 알레르기/비건 설문</li>
-          <li>어워즈 사전 투표 폼 발송</li>
-          <li>한 학기 사진 취합 (슬라이드쇼용)</li>
-          <li>플레이리스트 제작</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3 style="display:block;">🛒 준비물</h3>
-        <ul>
-          <li>네임택·스티커·매직·전지·포스트잇</li>
-          <li>롤링페이퍼·감사 카드·펜</li>
-          <li>데코(가랜드·풍선·LED)·포토 소품</li>
-          <li>폴라로이드·필름·트로피 소품</li>
-          <li>종이컵·접시·물티슈·쓰레기봉투</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3 style="display:block;">🙋 역할 분담</h3>
-        <ul>
-          <li>총괄 MC / 타임키퍼 1명</li>
-          <li>음식·음료 주문 담당 1명</li>
-          <li>게임·어워즈 진행 1~2명</li>
-          <li>사진·기록 담당 1명</li>
-          <li>데코·정리 담당 2명</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. VENUE -->
-  <section id="venue">
-    <div class="sec-head"><span class="emoji">🏠</span><h2>파티룸 추천 가이드</h2><span class="num">09</span></div>
-    <div class="grid">
-      <div class="card venue">
-        <h3 style="display:block;">📍 선택 기준</h3>
-        <ul>
-          <li>20명 여유 수용 (최대인원 25~30 권장)</li>
-          <li>빔프로젝터 + 음향 시스템 (필수)</li>
-          <li>주방·냉장고·전자레인지 (음식 세팅)</li>
-          <li>테이블·좌식 공간 (식사+원형 토크)</li>
-          <li>외부음식 반입 가능 여부 확인</li>
-        </ul>
-      </div>
-      <div class="card venue">
-        <h3 style="display:block;">🔎 찾는 법</h3>
-        <ul>
-          <li>스페이스클라우드 / 아웃룸 / 네이버 예약</li>
-          <li>"○○역 파티룸 20인" 검색 + 후기 확인</li>
-          <li>인스타 #파티룸추천 으로 분위기 체크</li>
-          <li>역세권·주차·심야 이용 가능 여부</li>
-        </ul>
-      </div>
-      <div class="card venue">
-        <h3 style="display:block;">💰 예약 팁</h3>
-        <ul>
-          <li>저녁 4.5시간 ≈ 15~25만 (지역차 큼)</li>
-          <li>평일·이른 시간 할인 활용</li>
-          <li>보증금·청소비·초과인원 요금 사전 확인</li>
-          <li>최소 1~2주 전 예약 (주말 빨리 마감)</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <footer>
     <p class="heart">한 학기 정말 수고 많았어요 🌅</p>
-    <p>Re:WIND — 우리의 1학기 시즌 피날레 · 종강파티 기획안</p>
+    <p>Re:WIND — 우리의 1학기 시즌 피날레 · 종강파티 </p>
   </footer>
 
 </div>
+
+<div class="slide-nav" id="slideNav">
+  <button id="slidePrev" aria-label="이전 슬라이드">‹</button>
+  <span class="page" id="slidePage">1 / 1</span>
+  <button id="slideNext" aria-label="다음 슬라이드">›</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ===== 현재 시간 (한국시간) ===== */
+  var clockEl = document.getElementById('clock-time');
+  function tick(){
+    if(!clockEl) return;
+    try{
+      var fmt = new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,weekday:'short'});
+      var m={}; fmt.formatToParts(new Date()).forEach(function(p){m[p.type]=p.value;});
+      var hh = (m.hour==='24')?'00':m.hour;
+      clockEl.textContent = m.year+'.'+m.month+'.'+m.day+' ('+m.weekday+') '+hh+':'+m.minute+':'+m.second;
+    }catch(e){
+      clockEl.textContent = new Date().toLocaleString('ko-KR');
+    }
+  }
+  tick(); setInterval(tick,1000);
+
+  /* ===== 네이버 길찾기 링크 생성 (모바일/PC 분기) ===== */
+  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  Array.prototype.forEach.call(document.querySelectorAll('a.map-btn[data-route]'), function(a){
+    var d = a.dataset;
+    var sn = encodeURIComponent(d.sname), en = encodeURIComponent(d.ename);
+    var pc = 'https://map.naver.com/index.nhn?menu=route&pathType=1'
+           + '&slng='+d.sx+'&slat='+d.sy+'&stext='+sn
+           + '&elng='+d.ex+'&elat='+d.ey+'&etext='+en;
+    var mo = 'https://m.map.naver.com/route.nhn?menu=route'
+           + '&sname='+sn+'&sx='+d.sx+'&sy='+d.sy
+           + '&ename='+en+'&ex='+d.ex+'&ey='+d.ey+'&pathType=0&showMap=true';
+    a.href = isMobile ? mo : pc;
+  });
+
+  /* ===== 세로/가로 보기 토글 ===== */
+  var body = document.body;
+  var wrap = document.querySelector('.wrap');
+  var toggleBtn = document.getElementById('viewToggle');
+  var pageInd = document.getElementById('slidePage');
+  function slides(){ return Array.prototype.filter.call(wrap.children, function(el){ return el.nodeType===1; }); }
+  function updatePage(){
+    var total = slides().length;
+    var w = wrap.clientWidth || 1;
+    var idx = Math.round(wrap.scrollLeft / w);
+    if(pageInd) pageInd.textContent = (idx+1)+' / '+total;
+  }
+  toggleBtn.addEventListener('click', function(){
+    var on = body.classList.toggle('slide-mode');
+    toggleBtn.textContent = on ? '📜 세로 보기' : '🎞 가로 슬라이드';
+    if(on){ wrap.scrollLeft = 0; updatePage(); }
+    else { window.scrollTo(0,0); }
+  });
+  function go(dir){
+    var w = wrap.clientWidth;
+    wrap.scrollBy({ left: dir*w, behavior:'smooth' });
+    setTimeout(updatePage, 380);
+  }
+  document.getElementById('slidePrev').addEventListener('click', function(){ go(-1); });
+  document.getElementById('slideNext').addEventListener('click', function(){ go(1); });
+  wrap.addEventListener('scroll', function(){ if(body.classList.contains('slide-mode')) updatePage(); });
+  document.addEventListener('keydown', function(e){
+    if(!body.classList.contains('slide-mode')) return;
+    if(e.key==='ArrowRight') go(1);
+    else if(e.key==='ArrowLeft') go(-1);
+  });
+
+  /* ===== 방중 당번표 (localStorage) ===== */
+  var KEY = 'rewind-duty-v1';
+  var table = document.getElementById('dutyTable');
+  var DEFAULT = {
+    cols: ['요일','식사 당번','청소 당번'],
+    rows: [['월','',''],['화','',''],['수','',''],['목','',''],['금','',''],['토','','']]
+  };
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+  function load(){
+    try{ var d = JSON.parse(localStorage.getItem(KEY)); if(d && d.cols && d.rows) return d; }catch(e){}
+    return clone(DEFAULT);
+  }
+  var data = load();
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function render(){
+    var h = '<thead><tr>';
+    data.cols.forEach(function(c, ci){
+      h += '<th><div class="cell" contenteditable="true" data-h="'+ci+'">'+esc(c)+'</div>'
+         + (data.cols.length>1 ? '<button class="col-del" data-col="'+ci+'" title="열 삭제">✕</button>' : '')
+         + '</th>';
+    });
+    h += '<th class="row-del-cell"></th></tr></thead><tbody>';
+    data.rows.forEach(function(row, ri){
+      h += '<tr>';
+      data.cols.forEach(function(c, ci){
+        h += '<td><div class="cell" contenteditable="true" data-r="'+ri+'" data-c="'+ci+'">'+esc(row[ci]||'')+'</div></td>';
+      });
+      h += '<td class="row-del-cell"><button class="row-del" data-row="'+ri+'" title="행 삭제">🗑</button></td></tr>';
+    });
+    h += '</tbody>';
+    table.innerHTML = h;
+  }
+  table.addEventListener('input', function(e){
+    var el = e.target;
+    if(!el.classList || !el.classList.contains('cell')) return;
+    var v = el.textContent.replace(/ /g,' ').trim();
+    if(el.hasAttribute('data-h')) data.cols[+el.getAttribute('data-h')] = v;
+    else data.rows[+el.getAttribute('data-r')][+el.getAttribute('data-c')] = v;
+    save();
+  });
+  table.addEventListener('click', function(e){
+    var b = e.target;
+    if(b.classList.contains('col-del')){
+      var ci = +b.getAttribute('data-col');
+      data.cols.splice(ci,1);
+      data.rows.forEach(function(r){ r.splice(ci,1); });
+      save(); render();
+    } else if(b.classList.contains('row-del')){
+      data.rows.splice(+b.getAttribute('data-row'),1);
+      save(); render();
+    }
+  });
+  document.getElementById('addCol').addEventListener('click', function(){
+    data.cols.push('당번');
+    data.rows.forEach(function(r){ r.push(''); });
+    save(); render();
+  });
+  document.getElementById('addRow').addEventListener('click', function(){
+    var r = data.cols.map(function(){ return ''; });
+    data.rows.push(r); save(); render();
+  });
+  document.getElementById('resetDuty').addEventListener('click', function(){
+    if(confirm('당번표를 기본값으로 초기화할까요? 입력한 내용이 모두 지워져요.')){
+      data = clone(DEFAULT); save(); render();
+    }
+  });
+  document.getElementById('copyDuty').addEventListener('click', function(){
+    var lines = ['🧹🍚 방중 당번표', data.cols.join(' | ')];
+    data.rows.forEach(function(r){ lines.push(r.map(function(x){ return x||'-'; }).join(' | ')); });
+    var txt = lines.join('\n');
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ toast('복사됐어요! 단톡에 붙여넣기 👍'); }, function(){ fallbackCopy(txt); });
+    } else fallbackCopy(txt);
+  });
+  function fallbackCopy(txt){
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); toast('복사됐어요! 단톡에 붙여넣기 👍'); }catch(e){ alert(txt); }
+    document.body.removeChild(ta);
+  }
+  var toastT;
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ t.classList.remove('show'); }, 1900);
+  }
+  render();
+})();
+</script>
+
 </body>
 </html>
