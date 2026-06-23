@@ -242,8 +242,10 @@
   body.slide-mode .wrap > *{
     flex:0 0 100%;width:100%;height:calc(100vh - 54px);
     overflow-y:auto;scroll-snap-align:start;
-    margin:0 !important;padding:22px 20px 90px;
+    margin:0 !important;padding:40px 20px 96px;
+    display:flex;flex-direction:column;justify-content:safe center;
   }
+  body.slide-mode .wrap > * > *{flex-shrink:0;}
   body.slide-mode .wrap > *::-webkit-scrollbar{width:0;}
   body.slide-mode .hero{border-radius:0;}
   body.slide-mode .slide-nav{
@@ -260,20 +262,48 @@
   /* ===== TOAST ===== */
   #toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--plum);color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:90;box-shadow:var(--shadow);}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ===== 게임/감사 카드 단락형 아이콘 겹침 방지 ===== */
+  .card li[style*="padding-left"]::before{display:none;}
+
+  /* ===== 당번표 소제목 ===== */
+  .duty-sub{font-family:'Jua',sans-serif;color:var(--sunset2);font-size:18px;margin:22px 0 6px;display:flex;align-items:center;gap:8px;}
+  .note.small{margin-top:0;margin-bottom:10px;}
+
+  /* ===== 가로보기 전용: hero 중앙 큰 시계 ===== */
+  .hero-now{display:none;}
+  body.slide-mode .hero-now{
+    display:block;margin-top:34px;
+    font-family:'Jua',sans-serif;font-size:clamp(44px,10vw,92px);line-height:1.05;
+    letter-spacing:3px;text-shadow:0 6px 24px rgba(91,42,78,.42);
+  }
+  body.slide-mode .hero-now .d{display:block;font-size:.26em;opacity:.92;margin-top:10px;letter-spacing:1px;}
+
+  /* ===== 가로보기 전용: 현재 시각 일정 ===== */
+  .now-sched{display:none;}
+  body.slide-mode .now-sched{
+    display:block;margin-top:28px;background:var(--card);
+    border:2px solid var(--sunset2);border-radius:22px;padding:22px 24px;box-shadow:var(--shadow);
+  }
+  .now-sched .lab{font-family:'Jua',sans-serif;color:var(--sunset2);font-size:14.5px;}
+  .now-sched .cur{font-family:'Jua',sans-serif;color:var(--plum);font-size:clamp(22px,5vw,32px);margin:8px 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .now-sched .cur .tm{color:var(--sunset1);}
+  .now-sched .nxt{font-size:14.5px;color:var(--soft);margin-top:6px;}
+  .now-sched .nxt b{color:var(--plum);}
 </style>
 </head>
-<body>
+<body class="slide-mode">
 
 <div class="topbar">
   <div class="clock"><span class="dot"></span><span id="clock-time">시간 불러오는 중…</span></div>
-  <button class="view-toggle" id="viewToggle">🎞 가로 슬라이드</button>
+  <button class="view-toggle" id="viewToggle">📜 세로 보기</button>
 </div>
 
 <div class="wrap">
 
   <!-- HERO -->
   <header class="hero">
-    <span class="tag">🎓 20~30대 공동체 · 종강파티</span>
+    <span class="tag">🎓 안암학사 종강파티</span>
     <h1>Re:WIND
       <small>우리의 1학기, 되감아 보는 시즌 피날레</small>
     </h1>
@@ -283,12 +313,14 @@
       <span>🎳 유타BK볼링장</span>
       <span>🎤 노래바 (자유참가)</span>
     </div>
+    <div class="hero-now" id="heroClock">--:--:--<span class="d">불러오는 중…</span></div>
   </header>
 
   <div class="concept">
     🎬 <b>컨셉 한 줄</b> — 한 학기를 한 편의 드라마 시즌처럼 <b>되감기(Rewind)</b> 합니다.
     재밌는 게임·어워즈로 분위기를 띄우되, 중반엔 진솔하게 <b>성장 · 도전 · 감사</b>를 나누는
     <b>재미 + 리프렉션</b> 종강파티예요. 술은 곁들이는 정도, 무게중심은 <b>액티비티 + 돌아보기</b> 입니다.
+    <div class="now-sched" id="nowSched"></div>
   </div>
 
   <!-- 1. TIMELINE -->
@@ -341,15 +373,31 @@
   <!-- 2. DUTY -->
   <section id="duty">
     <div class="sec-head"><span class="emoji">🧹</span><h2>방중 식사 · 청소 당번표</h2><span class="num">02</span></div>
-    <p class="note" style="margin-bottom:12px;">방학 중 <b>요일별(일요일 제외)</b> 식사·청소 당번을 정해요. 칸을 눌러 바로 입력하고, <b>열·행도 자유롭게 추가·삭제</b>할 수 있어요. ✏️ 입력 내용은 <b>이 기기 브라우저에 자동 저장</b>돼요(여러 명이 실시간으로 공유되진 않아요 — 다 정한 뒤 <b>📋 복사</b>해서 단톡에 공유하세요!).</p>
+    <p class="note" style="margin-bottom:6px;">방학 중 당번을 정해요. 칸을 눌러 바로 입력하고, <b>열·행도 자유롭게 추가·삭제</b>할 수 있어요. ✏️ 입력 내용은 <b>이 기기 브라우저에 자동 저장</b>돼요(여러 명이 실시간 공유는 안 돼요 — 다 정한 뒤 <b>📋 복사</b>해서 단톡에 공유하세요!).</p>
+
+    <h3 class="duty-sub">🍚 식사 당번 <span style="font-size:13px;color:var(--soft);font-family:'Gowun Dodum';">— 요일별 (일요일 제외)</span></h3>
     <div class="duty-tools">
-      <button class="duty-btn" id="addRow">+ 행 추가</button>
-      <button class="duty-btn" id="addCol">+ 열 추가</button>
-      <button class="duty-btn" id="copyDuty">📋 텍스트로 복사</button>
-      <button class="duty-btn warn" id="resetDuty">↺ 초기화</button>
+      <button class="duty-btn" id="addRowMeal">+ 행 추가</button>
+      <button class="duty-btn" id="addColMeal">+ 열 추가</button>
+      <button class="duty-btn warn" id="resetMeal">↺ 초기화</button>
     </div>
     <div class="duty-wrap">
-      <table class="duty" id="dutyTable"></table>
+      <table class="duty" id="mealTable"></table>
+    </div>
+
+    <h3 class="duty-sub">🧽 청소 당번 <span style="font-size:13px;color:var(--soft);font-family:'Gowun Dodum';">— 구역을 돌아가며</span></h3>
+    <p class="note small">요일은 정해져 있고 <b>구역</b>을 돌아가며 맡아요. 구역과 이름을 자유롭게 작성하세요.</p>
+    <div class="duty-tools">
+      <button class="duty-btn" id="addRowClean">+ 행 추가</button>
+      <button class="duty-btn" id="addColClean">+ 열 추가</button>
+      <button class="duty-btn warn" id="resetClean">↺ 초기화</button>
+    </div>
+    <div class="duty-wrap">
+      <table class="duty" id="cleanTable"></table>
+    </div>
+
+    <div class="duty-tools" style="margin-top:16px;">
+      <button class="duty-btn" id="copyDuty">📋 전체 텍스트로 복사</button>
     </div>
   </section>
 
@@ -575,17 +623,49 @@
 (function(){
   "use strict";
 
-  /* ===== 현재 시간 (한국시간) ===== */
+  /* ===== 현재 시간 (한국시간) + 현재 일정 ===== */
   var clockEl = document.getElementById('clock-time');
+  var heroClock = document.getElementById('heroClock');
+  var nowSched = document.getElementById('nowSched');
+  var SCHED = [
+    {t:'17:00', e:'🚶', l:'학사 출발'},
+    {t:'17:30', e:'🍽️', l:'애슐리퀸즈 청량리'},
+    {t:'19:00', e:'🚌', l:'학사로 이동'},
+    {t:'19:30', e:'🌅', l:'활동 & 리플렉션 & 단체사진'},
+    {t:'21:30', e:'🎳', l:'볼링'},
+    {t:'23:00', e:'🏠', l:'귀가'},
+    {t:'23:30', e:'🎤', l:'노래바 (자유참가)'}
+  ];
+  function toMin(t){ var p=t.split(':'); return (+p[0])*60 + (+p[1]); }
+  function renderNowSched(nowMin){
+    if(!nowSched) return;
+    var html;
+    if(nowMin < toMin(SCHED[0].t)){
+      var f = SCHED[0];
+      html = '<div class="lab">🎬 곧 시작해요</div>'
+           + '<div class="cur"><span>'+f.e+'</span><span class="tm">'+f.t+'</span> '+f.l+'</div>'
+           + '<div class="nxt">아직 파티 시작 전이에요 — 첫 일정을 기다려요!</div>';
+    } else {
+      var cur = SCHED[0], idx = 0;
+      for(var i=SCHED.length-1; i>=0; i--){ if(nowMin >= toMin(SCHED[i].t)){ cur=SCHED[i]; idx=i; break; } }
+      var nx = SCHED[idx+1];
+      html = '<div class="lab">🔴 지금 진행 중</div>'
+           + '<div class="cur"><span>'+cur.e+'</span><span class="tm">'+cur.t+'</span> '+cur.l+'</div>'
+           + (nx ? '<div class="nxt">다음 · <b>'+nx.t+' '+nx.l+'</b></div>'
+                 : '<div class="nxt">오늘의 마지막 일정! 끝까지 즐겨요 🎉</div>');
+    }
+    nowSched.innerHTML = html;
+  }
   function tick(){
-    if(!clockEl) return;
     try{
       var fmt = new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,weekday:'short'});
       var m={}; fmt.formatToParts(new Date()).forEach(function(p){m[p.type]=p.value;});
       var hh = (m.hour==='24')?'00':m.hour;
-      clockEl.textContent = m.year+'.'+m.month+'.'+m.day+' ('+m.weekday+') '+hh+':'+m.minute+':'+m.second;
+      if(clockEl) clockEl.textContent = m.year+'.'+m.month+'.'+m.day+' ('+m.weekday+') '+hh+':'+m.minute+':'+m.second;
+      if(heroClock) heroClock.innerHTML = hh+':'+m.minute+':'+m.second+'<span class="d">'+m.year+'.'+m.month+'.'+m.day+' ('+m.weekday+')</span>';
+      renderNowSched((+hh)*60 + (+m.minute));
     }catch(e){
-      clockEl.textContent = new Date().toLocaleString('ko-KR');
+      if(clockEl) clockEl.textContent = new Date().toLocaleString('ko-KR');
     }
   }
   tick(); setInterval(tick,1000);
@@ -636,77 +716,93 @@
     else if(e.key==='ArrowLeft') go(-1);
   });
 
-  /* ===== 방중 당번표 (localStorage) ===== */
-  var KEY = 'rewind-duty-v1';
-  var table = document.getElementById('dutyTable');
-  var DEFAULT = {
-    cols: ['요일','식사 당번','청소 당번'],
-    rows: [['월','',''],['화','',''],['수','',''],['목','',''],['금','',''],['토','','']]
-  };
+  /* ===== 방중 당번표 (식사=요일별 / 청소=구역별, localStorage) ===== */
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
-  function load(){
-    try{ var d = JSON.parse(localStorage.getItem(KEY)); if(d && d.cols && d.rows) return d; }catch(e){}
-    return clone(DEFAULT);
-  }
-  var data = load();
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function render(){
-    var h = '<thead><tr>';
-    data.cols.forEach(function(c, ci){
-      h += '<th><div class="cell" contenteditable="true" data-h="'+ci+'">'+esc(c)+'</div>'
-         + (data.cols.length>1 ? '<button class="col-del" data-col="'+ci+'" title="열 삭제">✕</button>' : '')
-         + '</th>';
-    });
-    h += '<th class="row-del-cell"></th></tr></thead><tbody>';
-    data.rows.forEach(function(row, ri){
-      h += '<tr>';
+
+  function makeDuty(opt){
+    var table = document.getElementById(opt.tableId);
+    var data;
+    try{ var d = JSON.parse(localStorage.getItem(opt.key)); data = (d && d.cols && d.rows) ? d : clone(opt.def); }
+    catch(e){ data = clone(opt.def); }
+    function save(){ try{ localStorage.setItem(opt.key, JSON.stringify(data)); }catch(e){} }
+    function render(){
+      var h = '<thead><tr>';
       data.cols.forEach(function(c, ci){
-        h += '<td><div class="cell" contenteditable="true" data-r="'+ri+'" data-c="'+ci+'">'+esc(row[ci]||'')+'</div></td>';
+        h += '<th><div class="cell" contenteditable="true" data-h="'+ci+'">'+esc(c)+'</div>'
+           + (data.cols.length>1 ? '<button class="col-del" data-col="'+ci+'" title="열 삭제">✕</button>' : '')
+           + '</th>';
       });
-      h += '<td class="row-del-cell"><button class="row-del" data-row="'+ri+'" title="행 삭제">🗑</button></td></tr>';
+      h += '<th class="row-del-cell"></th></tr></thead><tbody>';
+      data.rows.forEach(function(row, ri){
+        h += '<tr>';
+        data.cols.forEach(function(c, ci){
+          h += '<td><div class="cell" contenteditable="true" data-r="'+ri+'" data-c="'+ci+'">'+esc(row[ci]||'')+'</div></td>';
+        });
+        h += '<td class="row-del-cell"><button class="row-del" data-row="'+ri+'" title="행 삭제">🗑</button></td></tr>';
+      });
+      h += '</tbody>';
+      table.innerHTML = h;
+    }
+    table.addEventListener('input', function(e){
+      var el = e.target;
+      if(!el.classList || !el.classList.contains('cell')) return;
+      var v = el.textContent.trim();
+      if(el.hasAttribute('data-h')) data.cols[+el.getAttribute('data-h')] = v;
+      else data.rows[+el.getAttribute('data-r')][+el.getAttribute('data-c')] = v;
+      save();
     });
-    h += '</tbody>';
-    table.innerHTML = h;
+    table.addEventListener('click', function(e){
+      var b = e.target;
+      if(b.classList.contains('col-del')){
+        var ci = +b.getAttribute('data-col');
+        data.cols.splice(ci,1);
+        data.rows.forEach(function(r){ r.splice(ci,1); });
+        save(); render();
+      } else if(b.classList.contains('row-del')){
+        data.rows.splice(+b.getAttribute('data-row'),1);
+        save(); render();
+      }
+    });
+    document.getElementById(opt.addColId).addEventListener('click', function(){
+      data.cols.push(opt.newCol || '항목');
+      data.rows.forEach(function(r){ r.push(''); });
+      save(); render();
+    });
+    document.getElementById(opt.addRowId).addEventListener('click', function(){
+      data.rows.push(data.cols.map(function(){ return ''; }));
+      save(); render();
+    });
+    document.getElementById(opt.resetId).addEventListener('click', function(){
+      if(confirm(opt.title+' 표를 기본값으로 초기화할까요? 입력한 내용이 지워져요.')){
+        data = clone(opt.def); save(); render();
+      }
+    });
+    render();
+    return { title: opt.title, data: function(){ return data; } };
   }
-  table.addEventListener('input', function(e){
-    var el = e.target;
-    if(!el.classList || !el.classList.contains('cell')) return;
-    var v = el.textContent.replace(/ /g,' ').trim();
-    if(el.hasAttribute('data-h')) data.cols[+el.getAttribute('data-h')] = v;
-    else data.rows[+el.getAttribute('data-r')][+el.getAttribute('data-c')] = v;
-    save();
+
+  var mealDuty = makeDuty({
+    tableId:'mealTable', key:'rewind-duty-meal-v1', title:'식사 당번', newCol:'당번',
+    addRowId:'addRowMeal', addColId:'addColMeal', resetId:'resetMeal',
+    def:{ cols:['요일','식사 당번'], rows:[['월',''],['화',''],['수',''],['목',''],['금',''],['토','']] }
   });
-  table.addEventListener('click', function(e){
-    var b = e.target;
-    if(b.classList.contains('col-del')){
-      var ci = +b.getAttribute('data-col');
-      data.cols.splice(ci,1);
-      data.rows.forEach(function(r){ r.splice(ci,1); });
-      save(); render();
-    } else if(b.classList.contains('row-del')){
-      data.rows.splice(+b.getAttribute('data-row'),1);
-      save(); render();
-    }
+  var cleanDuty = makeDuty({
+    tableId:'cleanTable', key:'rewind-duty-clean-v1', title:'청소 당번', newCol:'이름',
+    addRowId:'addRowClean', addColId:'addColClean', resetId:'resetClean',
+    def:{ cols:['구역','이름'], rows:[['거실/마루',''],['주방',''],['화장실',''],['현관/신발장',''],['분리수거','']] }
   });
-  document.getElementById('addCol').addEventListener('click', function(){
-    data.cols.push('당번');
-    data.rows.forEach(function(r){ r.push(''); });
-    save(); render();
-  });
-  document.getElementById('addRow').addEventListener('click', function(){
-    var r = data.cols.map(function(){ return ''; });
-    data.rows.push(r); save(); render();
-  });
-  document.getElementById('resetDuty').addEventListener('click', function(){
-    if(confirm('당번표를 기본값으로 초기화할까요? 입력한 내용이 모두 지워져요.')){
-      data = clone(DEFAULT); save(); render();
-    }
-  });
+
   document.getElementById('copyDuty').addEventListener('click', function(){
-    var lines = ['🧹🍚 방중 당번표', data.cols.join(' | ')];
-    data.rows.forEach(function(r){ lines.push(r.map(function(x){ return x||'-'; }).join(' | ')); });
-    var txt = lines.join('\n');
+    var lines = [];
+    [mealDuty, cleanDuty].forEach(function(tbl){
+      var d = tbl.data();
+      lines.push('■ '+tbl.title);
+      lines.push(d.cols.join(' | '));
+      d.rows.forEach(function(r){ lines.push(r.map(function(x){ return x||'-'; }).join(' | ')); });
+      lines.push('');
+    });
+    var txt = '🧹🍚 방중 당번표\n\n' + lines.join('\n').trim();
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(txt).then(function(){ toast('복사됐어요! 단톡에 붙여넣기 👍'); }, function(){ fallbackCopy(txt); });
     } else fallbackCopy(txt);
@@ -725,7 +821,9 @@
     clearTimeout(toastT);
     toastT = setTimeout(function(){ t.classList.remove('show'); }, 1900);
   }
-  render();
+
+  /* 초기화: 가로 슬라이드가 기본 보기 */
+  if(body.classList.contains('slide-mode')) updatePage();
 })();
 </script>
 
