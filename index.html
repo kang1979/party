@@ -213,6 +213,16 @@
     padding:8px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(255,94,120,.22);
   }
   .jump-btn:active{transform:scale(.96);}
+  /* 돌아가기(타임라인) 버튼 — 앞으로가기와 구분되는 아웃라인 톤 */
+  .back-btn{
+    display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    font-family:'Jua',sans-serif;font-size:13.5px;color:var(--plum);
+    background:var(--card);border:1.5px solid var(--sunset1);
+    padding:8px 16px;border-radius:999px;margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(255,138,92,.14);
+  }
+  .back-btn:active{transform:scale(.96);}
+  .back-btn .ar{font-size:15px;}
 
   /* ===== DUTY TABLE ===== */
   .duty-tools{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px;}
@@ -346,7 +356,7 @@
       <div class="tl-item">
         <div class="tl-time">17:30</div>
         <div class="tl-body"><h3>애슐리퀸즈 청량리 🍽️</h3>
-          <p>저녁 뷔페로 든든하게! <b>롯데백화점 청량리점</b> (왕산로 214, 청량리역). 천천히 먹으며 근황 토크.</p></div>
+          <p>저녁 뷔페로 든든하게! <b>롯데백화점 청량리점</b> (왕산로 214, 청량리역). 애슐리 기둥 뽑기 ㅋㅋ</p></div>
       </div>
       <div class="tl-item">
         <div class="tl-time">19:00</div>
@@ -367,14 +377,14 @@
       <div class="tl-item">
         <div class="tl-time">21:30</div>
         <div class="tl-body"><h3>볼링 🎳</h3>
-          <p><b>성신여대 유타BK볼링장</b> (유타몰, 동소문로 106). 팀 나눠 한 게임 신나게!</p>
+          <p><b>성신여대 유타BK볼링장</b> (유타몰, 동소문로 106). 오늘은 내가 볼링왕</p>
           <a class="map-btn" target="_blank" rel="noopener" data-route data-sname="안암학사교회" data-sx="127.0265" data-sy="37.5836" data-ename="유타BK볼링장 성신여대" data-ex="127.0166" data-ey="37.5921"><span class="pin">🧭</span> 네이버 길찾기 · 안암학사교회 → 유타BK볼링장</a>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-time">23:00</div>
         <div class="tl-body"><h3>귀가 🏠</h3>
-          <p>공식 일정 마무리! 조심히 귀가해요.</p></div>
+          <p>공식 일정 마무리! 조심히 귀가해요. 귀소 본능 max</p></div>
       </div>
       <div class="tl-item">
         <div class="tl-time">23:30</div>
@@ -386,6 +396,7 @@
 
   <!-- 2. DUTY -->
   <section id="duty">
+    <button class="back-btn" data-goto="timeline"><span class="ar">⏰</span> 전체 일정으로 돌아가기</button>
     <div class="sec-head"><span class="emoji">🧹</span><h2>방중 식사 · 청소 당번표</h2><span class="num">02</span></div>
     <p class="note" style="margin-bottom:6px;">방학 중 당번을 정해요. 칸을 눌러 바로 입력하고, <b>열·행도 자유롭게 추가·삭제</b>할 수 있어요. ✏️ 입력 내용은 <b>이 기기 브라우저에 자동 저장</b>돼요(여러 명이 실시간 공유는 안 돼요 — 다 정한 뒤 <b>📋 복사</b>해서 단톡에 공유하세요!).</p>
 
@@ -417,6 +428,7 @@
 
   <!-- 3. PLAY -->
   <section id="play">
+    <button class="back-btn" data-goto="timeline"><span class="ar">⏰</span> 전체 일정으로 돌아가기</button>
     <div class="sec-head"><span class="emoji">🎉</span><h2>노는 것 (액티비티)</h2><span class="num">03</span></div>
     <div class="grid">
       <div class="card play">
@@ -540,6 +552,7 @@
 
   <!-- 4. REFLECTION -->
   <section id="reflect">
+    <button class="back-btn" data-goto="timeline"><span class="ar">⏰</span> 전체 일정으로 돌아가기</button>
     <div class="sec-head"><span class="emoji">🌅</span><h2>리플렉션 가이드 (메인 코너)</h2><span class="num">04</span></div>
     <div class="reflect">
       <p style="color:var(--soft);margin-bottom:4px;">불 살짝 낮추고 잔잔한 BGM. 진행자가 3가지 질문을 안내하면, 각자 카드에 적은 뒤 원형으로 돌아가며 1~2분씩 나눕니다. (20명이면 4~5명 소그룹 동시 진행 후 대표 공유 추천)</p>
@@ -701,14 +714,35 @@
             + '&dlat='+d.ey+'&dlng='+d.ex+'&dname='+en+'&appname='+encodeURIComponent(appName);
     a.href = isMobile ? mo : pc;       // 폴백/PC용 실제 링크
     if(isMobile){
+      var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       a.addEventListener('click', function(e){
         e.preventDefault();
-        var t = Date.now();
-        var timer = setTimeout(function(){
-          if(Date.now()-t < 1600) window.location.href = mo;   // 앱 미전환 → 웹
-        }, 1200);
-        window.addEventListener('pagehide', function(){ clearTimeout(timer); }, { once:true });
-        window.location.href = app;     // 네이버 지도 앱 실행 시도
+        var timer;
+        function cleanup(){
+          document.removeEventListener('visibilitychange', onVis);
+          window.removeEventListener('blur', cancel);
+          window.removeEventListener('pagehide', cancel);
+        }
+        function cancel(){ clearTimeout(timer); cleanup(); }
+        function onVis(){ if(document.hidden) cancel(); }  // 앱이 열리면 hidden → 폴백 취소
+        document.addEventListener('visibilitychange', onVis);
+        window.addEventListener('blur', cancel, { once:true });
+        window.addEventListener('pagehide', cancel, { once:true });
+        // 앱 미설치일 때만 웹 폴백 (이미 백그라운드면 현재 페이지 유지)
+        timer = setTimeout(function(){
+          cleanup();
+          if(document.visibilityState === 'visible') window.location.href = mo;
+        }, 1400);
+        // 앱 실행 시도 — 현재 페이지 URL은 바꾸지 않음
+        if(isIOS){
+          window.location.href = app;
+        } else {
+          var ifr = document.createElement('iframe');
+          ifr.style.display = 'none';
+          ifr.src = app;
+          document.body.appendChild(ifr);
+          setTimeout(function(){ if(ifr.parentNode) ifr.parentNode.removeChild(ifr); }, 1500);
+        }
       });
     }
   });
